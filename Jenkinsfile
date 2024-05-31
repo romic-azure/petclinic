@@ -33,7 +33,7 @@ pipeline {
                 script{
                     withCredentials([usernamePassword(credentialsId: "docker-credentials", usernameVariable: "DOCKER_REPOSITORY_USER", passwordVariable: "DOCKER_REPOSITORY_PASSWORD")]){
                         sh "docker login -u $DOCKER_REPOSITORY_USER -p $DOCKER_REPOSITORY_PASSWORD"
-                        sh "docker push nchisacov/petclinic:$env.BUILD_NUMBER"
+                        sh "docker push romeops/devops:$env.BUILD_NUMBER"
                     }
                 }
             }
