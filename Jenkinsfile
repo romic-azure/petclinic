@@ -1,3 +1,5 @@
+@Library("myShared-library") _
+
 pipeline {
     agent any
     tools{
@@ -6,6 +8,13 @@ pipeline {
     }
 
     stages{
+        
+        stage("Shows who started the job/pipeline") {
+            steps {     			
+                whoStarted()
+            }
+        }
+        
         stage("Compile"){
             steps{
                 sh "mvn clean compile"
