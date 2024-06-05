@@ -54,7 +54,8 @@ pipeline {
                 echo '-===- Pushing petclinic docker image -===-'
                 script{
                     withCredentials([usernamePassword(credentialsId: "docker-credentials", usernameVariable: "DOCKER_REPOSITORY_USER", passwordVariable: "DOCKER_REPOSITORY_PASSWORD")]){
-                        sh "docker login -u $DOCKER_REPOSITORY_USER -p $DOCKER_REPOSITORY_PASSWORD"
+                        // sh "docker login -u $DOCKER_REPOSITORY_USER -p $DOCKER_REPOSITORY_PASSWORD"
+                        sh "echo $DOCKER_REPOSITORY_PASSWORD | docker login -u romeops --password-stdin"
                         sh "docker push romeops/devops:$env.BUILD_NUMBER"
                     }
                 }
@@ -64,7 +65,7 @@ pipeline {
         stage('Remove local images') {
             steps {
                 echo '-===- Delete the local docker images -===-'
-                sh("docker rmi -f romic-azure/petclinic:$env.BUILD_NUMBER")
+                sh("docker rmi -f romeops/devops:$env.BUILD_NUMBER")
             }
         }
         
